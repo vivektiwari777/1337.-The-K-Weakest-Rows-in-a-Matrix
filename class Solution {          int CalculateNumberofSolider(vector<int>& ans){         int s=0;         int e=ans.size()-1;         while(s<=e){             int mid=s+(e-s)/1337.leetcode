@@ -1,0 +1,39 @@
+class Solution {
+    
+    int CalculateNumberofSolider(vector<int>& ans){
+        int s=0;
+        int e=ans.size()-1;
+        while(s<=e){
+            int mid=s+(e-s)/2;
+            if(ans[mid]==0){
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+            return s;
+    }
+        
+    
+public:
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        priority_queue<pair<int,int>,vector<pair<int,int>>>p;
+        for(int i=0;i<mat.size();i++){
+            p.push({CalculateNumberofSolider(mat[i]),i});
+            if(p.size()>k){
+                p.pop();
+            }
+            
+        }
+        vector<int>v;
+        while(p.size()>0){
+            v.push_back(p.top().second);
+            p.pop();
+        }
+        reverse(v.begin(),v.end());
+        return v;
+        
+        
+    }
+};
